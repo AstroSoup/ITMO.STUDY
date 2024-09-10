@@ -1,4 +1,4 @@
-def checkInput(n): # Функция проверяет входные данные на возможные ошибки
+def checkInput(n): # Функция проверки входных данных на возможные ошибки
     if not (set(n) <= {'0','1'}):
         raise Exception('Ошибка. Во входных данных обнаружен недопустимый символ. Число в Фибоначчиевой системе счисления состоит только из 1 и 0.')
     elif '11' in n:
@@ -6,7 +6,7 @@ def checkInput(n): # Функция проверяет входные данны
     elif n == '':
         raise Exception('Ошибка. Введена пустая строка.')
 
-def fibGenerate(n): # Функция для генерации последовательности Фибоначчи
+def fibGenerate(n): # Функция генерации последовательности Фибоначчи
     fib = [1,2]
     while len(fib) < n:
         fib.append(fib[-1] + fib[-2])
@@ -25,9 +25,9 @@ def fibToDec(number): # Функция перевода числа из Фибо
         for k,v in zip(list(number[::-1]),fibGenerate(len(number))):
             ans += int(k) * v # Сумма чисел последовательности по индексу которых в введенном числе стоит 1
         if isNegative:
-            return -ans
+            return f"Результат перевода в десятичную систему счисления: {-ans}"
         else:
-            return ans
+            return f"Результат перевода в десятичную систему счисления: {ans}"
     except Exception as e:
         return e
 
