@@ -13,7 +13,7 @@ public class Main{
         for (int i = 0; i < x.length; i++){    //  заполнение массива x случайными числами из промежутка [-6; 15)
             x[i] = rand.nextDouble(-6,15);
         }
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++){    //  заполнение массива r в соответствии с ТЗ
             for (int j = 0; j < 16; j++){
                 switch (w[i]){
                     case 11: r[i][j] = Math.cos(Math.pow((0.5 / Math.exp(x[j])), Math.pow((0.5 - x[j]),x[j])));         //  случай для w[i] = 11
