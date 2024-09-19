@@ -1,17 +1,15 @@
-import java.util.*;
 import java.lang.Math;
 
 public class Main{
     public static void main(String[] args){
-        Random rand = new Random();
         int[] w = new int[15];
         double[] x = new double[16];
         double[][] r = new double[8][16];   //  инициализация требуемых массивов
         for (int i = 0; i < 15; i++){    //  заполнение массива w числами от 19 до 5
             w[i] = 19 - i;
         }
-        for (int i = 0; i < x.length; i++){    //  заполнение массива x случайными числами из промежутка [-6; 15)
-            x[i] = rand.nextDouble(-6,15);
+        for (int i = 0; i < x.length; i++){    //  заполнение массива x случайными числами из промежутка [-6; 15]
+            x[i] = Math.random() * 21 - 6;
         }
         for (int i = 0; i < 8; i++){    //  заполнение массива r в соответствии с ТЗ
             for (int j = 0; j < 16; j++){
