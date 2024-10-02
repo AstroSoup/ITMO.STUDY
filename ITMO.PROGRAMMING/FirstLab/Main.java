@@ -5,7 +5,7 @@ public class Main{
     static double calc(int z, double x){
         return switch (z){
             case 10 -> Math.cos(Math.sin(Math.pow((1-x)/x,x)));    //  случай для z = 10
-            case 2, 4, 11, 12, 13, 14, 15 -> Math.asin(Math.pow((x+1)/2 * Math.E + 1,2)) * (0.5 + Math.tan(x) * (Math.cos(x) + 0.25));    //  случай для z ∈ {2, 4, 11, 12, 13, 14, 15}
+            case 2, 4, 11, 12, 13, 14, 15 -> Math.pow((Math.asin(Math.pow((x+1)/2 * Math.E + 1,2)) * (0.5 + Math.tan(x) * (Math.cos(x) + 0.25))), 3);    //  случай для z ∈ {2, 4, 11, 12, 13, 14, 15}
             default -> Math.pow((Math.sin(Math.cos(Math.cos(x))) - 1) / Math.PI, 2);    //  случай для остальных значений z
         };
     }
