@@ -5,6 +5,7 @@ public class Rest extends StatusMove {
     public Rest() {  // конструктор класса Rest в суперкласс передается тип атаки, урон и точность попадания
         super(Type.PSYCHIC, 0, 0);
     }
+    @Override
     protected boolean checkAccuracy(Pokemon att, Pokemon def) {  // Атака не наносит урона, но всегда накладывает эффект на атакующего покемона
         return true;
     }
@@ -13,8 +14,8 @@ public class Rest extends StatusMove {
         Effect.sleep(p);
 
         p.setMod(Stat.HP, (int)Math.ceil(p.getHP() - p.getStat(Stat.HP)));
-
     }
+    @Override
     protected String describe(){  // Сообщение выводимое при использовании атаки
         return "использует Rest";
     }

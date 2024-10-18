@@ -5,7 +5,7 @@ public class Confide extends StatusMove{
     public Confide(){  // конструктор класса Confide в суперкласс передается тип атаки, урон и точность попадания
         super(Type.NORMAL,0,0);
     }
-
+    @Override
     protected boolean checkAccuracy(Pokemon att, Pokemon def) {  // Атака игнорирует значения Evasion и Accuracy тем самым попадая всегда
         return true;
     }
