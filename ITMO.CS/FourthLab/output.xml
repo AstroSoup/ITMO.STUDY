@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Root>
+    <timetable>
+        <Monday>
+            <lesson1>
+                <subject>Программирование (Лаб)</subject>
+                <time>8:20 - 9:50</time>
+                <weeks>3, 5, 7, 9, 11, 13, 15, 17</weeks>
+                <teacher>Наумова Надежда Александровна</teacher>
+                <room>2117</room>
+                <building>Кронверкский пр., д.49, лит.А</building>
+                <format>Очно - дистанционный</format>
+            </lesson1>
+            <lesson2>
+                <subject>Программирование (Лаб)</subject>
+                <time>10:00 - 11:30</time>
+                <weeks>[3, 5, 7, 9, 11, 13, 15, 17]</weeks>
+                <teacher>Наумова Надежда Александровна</teacher>
+                <room>2117</room>
+                <building>Кронверкский пр., д.49, лит.А</building>
+                <format>Очно - дистанционный</format>
+            </lesson2>
+            <lesson3>
+                <subject>Основы дискретной математики (базовый уровень) (Лек)</subject>
+                <time>11:40 - 13:10</time>
+                <weeks>2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18</weeks>
+                <teacher>Поляков Владимир Иванович</teacher>
+                <room>2403</room>
+                <building>Кронверкский пр., д.49, лит.А</building>
+                <format>Очно - дистанционный</format>
+            </lesson3>
+            <lesson4>
+                <subject>Основы дискретной математики (базовый уровень) (Прак)</subject>
+                <time>13:30 - 15:00</time>
+                <weeks>2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18</weeks>
+                <teacher>Поляков Владимир Иванович</teacher>
+                <room>2403</room>
+                <building>Кронверкский пр., д.49, лит.А</building>
+                <format>Очно - дистанционный</format>
+            </lesson4>
+        </Monday>
+        <Thursday>
+            <lesson1>
+                <subject>Россия в истории современных международных отношений (Лек)</subject>
+                <time>13:30 - 15:00</time>
+                <weeks>1, 3, 5, 7, 9, 11, 13, 15</weeks>
+                <teacher>Богомазов Николай Иванович</teacher>
+                <room>1229</room>
+                <building>Кронверкский пр., д.49, лит.А</building>
+                <format>Очно - дистанционный</format>
+            </lesson1>
+            <lesson2>
+                <subject>Россия в истории современных международных отношений (Прак)</subject>
+                <time>17:00 - 18:30</time>
+                <weeks>1, 3, 5, 7, 9, 11, 13, 15</weeks>
+                <teacher>Павловский Алексей Федорович</teacher>
+                <room>2201</room>
+                <building>Кронверкский пр., д.49, лит.А</building>
+                <format>Очно - дистанционный</format>
+            </lesson2>
+        </Thursday>
+    </timetable>
+</Root>
