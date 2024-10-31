@@ -143,33 +143,41 @@ def yamlToPyDict(file):  # Функция для парсинга YAML - фай�
     return parsedYaml
 
 
-def traverseDict(dictionary, string=f'<?xml version="1.0" encoding="UTF-8" ?>\n<Root>\n', openedKeys=[], currentDepth=1):
+
+def traverseDict(dictionary, string=f"<?xml version='1.0'?>\n<!DOCTYPE wml PUBLIC '-//WAPFORUM//DTD WML 1.1//EN' 'http://www.wapforum.org/DTD/wml_1.1.xml'>\n<wml>\n", openedKeys=[], currentDepth=1):
     for key, value in dictionary.items():
         if isinstance(value, dict):
-            string += 4*currentDepth * ' ' + f'<{key}>\n'
-            openedKeys.append(4*currentDepth * ' ' + f'</{key}>\n')
+            string += 4*currentDepth * ' ' + f'<card id="{key}">\n'
+            openedKeys.append(4*currentDepth * ' ' + f'</card>\n')
             string = traverseDict(dictionary[key], string, openedKeys, currentDepth + 1)
+        elif isinstance(value,list):
+            string += 4*currentDepth * ' ' + f'<table>\n'
+            string += 4*(currentDepth+1) * ' ' + f'<tr>\n'
+            for elem in value:
+                string += 4*(currentDepth+2) * ' ' + f'<td>{elem}</td>\n'
+            string += 4 * (currentDepth + 1) * ' ' + f'</tr>\n'
+            string += 4 * currentDepth * ' ' + f'</table>\n'
         else:
-            string += 4*currentDepth * ' ' + f'<{key}>{value}</{key}>\n'
+            string += 4*currentDepth * ' ' + f'<p>{value}</p>\n'
             continue
         string += openedKeys.pop()
     return string
 
 
 def pyDictToXml(pyDict):
-    return traverseDict(pyDict) + f'</Root>\n'
+    return traverseDict(pyDict) + f'</wml>\n'
 
 
-def yamlToXml(path, mode='r', buffering=-1, encoding="utf-8", errors=None, newline=None, closefd=True, opener=None):
+def yamlToWml(path, mode='r', buffering=-1, encoding="utf-8", errors=None, newline=None, closefd=True, opener=None):
 
     with open(path, mode, buffering, encoding, errors, newline, closefd, opener) as file:
         isYamlValid(file)
     with open(path, mode, buffering, encoding, errors, newline, closefd, opener) as file:
         yamlDict = yamlToPyDict(file)
 
-    with open('output.xml', 'w', encoding='utf-8') as file:
+    with open('output.wml', 'w', encoding='utf-8') as file:
         file.write(pyDictToXml(yamlDict))
 
 
-yamlToXml("schedule.yml")
-#yamlToXml(input("Введите путь до файла в формате YAML: "))
+yamlToWml("schedule.yml")
+#yamlToWml(input("Введите путь до файла в формате YAML: "))
