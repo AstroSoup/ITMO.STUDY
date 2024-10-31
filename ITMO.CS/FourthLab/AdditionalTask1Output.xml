@@ -14,14 +14,7 @@
 			<lesson2>
 				<subject>Программирование (Лаб)</subject>
 				<time>10:00 - 11:30</time>
-				<weeks>3</weeks>
-				<weeks>5</weeks>
-				<weeks>7</weeks>
-				<weeks>9</weeks>
-				<weeks>11</weeks>
-				<weeks>13</weeks>
-				<weeks>15</weeks>
-				<weeks>17</weeks>
+				<weeks>3, 5, 7, 9, 11, 13, 15, 17</weeks>
 				<teacher>Наумова Надежда Александровна</teacher>
 				<room>2117</room>
 				<building>Кронверкский пр., д.49, лит.А</building>
