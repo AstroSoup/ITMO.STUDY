@@ -120,7 +120,7 @@ def yamlToXml(path):
     with open(path, 'r', encoding="utf-8") as file:
         yamlDict = yamlToPyDict(file)
 
-    with open('output.xml', 'w', encoding='utf-8') as file:
+    with open('AdditionalTask2Output.xml', 'w', encoding='utf-8') as file:
         file.write(pyDictToXml(yamlDict))
 
 
