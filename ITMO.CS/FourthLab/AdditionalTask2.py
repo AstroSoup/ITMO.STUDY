@@ -4,7 +4,6 @@ import re
 
 
 def countEnclosure(line):
-    # Uses regex to count leading spaces for indentation
     return len(re.match(r'^\s*', line).group())
 
 
