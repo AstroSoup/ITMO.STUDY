@@ -42,6 +42,7 @@ public class Shorty extends Character implements Storage{
                 System.out.println(this.getName() + " сломал " + item.getName() + (this.getCalmness().equals(CALM) ? "" : " в ярости"));
                 if (item instanceof Container container){
                     for (Item elem : container.getInventory()) {
+                        System.out.println(this.getName() + " вытащил " + elem.getName());
                         this.getLocation().addToInv(elem);
                     }
                 }

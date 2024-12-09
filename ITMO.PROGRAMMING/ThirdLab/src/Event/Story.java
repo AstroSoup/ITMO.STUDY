@@ -45,6 +45,17 @@ public class Story {
 
             }
         }
+        System.out.println("Наконец они посмотрели в окно и увидели веревку, свешивавшуюся вниз.");
+
+        for (Shorty shorty : shorties){
+            if (shorty.getLuck() > 0.5){
+                shorty.move(shorty.getLocation().getNeighbors().get(0));
+            }else{
+                shorty.move(shorty.getLocation().getNeighbors().get(1));
+            }
+            System.out.println(shorty.getName() + " cпустился по " + shorty.getLocation().getName());
+        }
+
         Shorty leastEnergyShorty = null;
         MainCharacter leastEnergyMC = (neznayka.getEnergy() < kozlik.getEnergy() ? neznayka : kozlik);
         for (Shorty shorty : shorties) {
@@ -61,7 +72,7 @@ public class Story {
                 return;
             }
         }
-        System.out.println("Незнайки и козлика и след простыл.");
+        System.out.println("Но было поздно. Незнайки и козлика и след простыл.");
         PathResult path = PathFinder.findShortestPath(locations.get(0), leastEnergyMC.getLocation());
         System.out.print("Коротышки пробежали через ");
         path.path().forEach(x -> System.out.print(x.getName() + ", "));
