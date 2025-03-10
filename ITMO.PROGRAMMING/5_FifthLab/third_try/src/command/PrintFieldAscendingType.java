@@ -3,9 +3,9 @@ package command;
 import entity.*;
 import utility.CollectionHandler;
 import utility.CommandHandler;
-import utility.TicketTypeComparator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Vector;
 /**
  * Класс команды для вывода всех значений полей TicketType элементов коллекции упорядоченных по возрастанию.
@@ -31,7 +31,7 @@ public class PrintFieldAscendingType extends UsableCommand {
         for (Ticket t : collection) {
             result.add(t.getType());
         }
-        result.sort(new TicketTypeComparator());
+        result.sort(Comparator.nullsFirst(Comparator.reverseOrder()));
         ArrayList<String> resultStringList = new ArrayList<>();
         for (TicketType t : result) {
             resultStringList.add(t == null ? "На коленочках у проводника" : t.toString());

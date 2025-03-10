@@ -4,9 +4,9 @@ import entity.Ticket;
 import entity.TicketType;
 import utility.CollectionHandler;
 import utility.CommandHandler;
-import utility.TicketTypeComparator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Vector;
 
 /**
@@ -33,7 +33,7 @@ public class PrintFieldDescendingType extends UsableCommand {
         for (Ticket t : collection) {
             result.add(t.getType());
         }
-        result.sort(new TicketTypeComparator().reversed());
+        result.sort(Comparator.nullsLast(Comparator.naturalOrder()));
         ArrayList<String> resultStringList = new ArrayList<>();
         for (TicketType t : result) {
             resultStringList.add(t == null ? "На коленочках у проводника" : t.toString());
