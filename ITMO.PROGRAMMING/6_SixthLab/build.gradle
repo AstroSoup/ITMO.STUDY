@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'sixthLab'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.sun.istack:istack-commons-runtime:3.0.12'
+    implementation 'jakarta.activation:jakarta.activation-api:2.0.0'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    implementation 'org.glassfish.jaxb:jaxb-core:4.0.5'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+}
+
+test {
+    useJUnitPlatform()
+}

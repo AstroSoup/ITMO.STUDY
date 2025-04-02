@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addIfMax>
+    <name>Add_if_max</name>
+    <ticket>
+        <coordinates>
+            <x>1.0</x>
+            <y>2.0</y>
+        </coordinates>
+        <creationDate>2025-03-27</creationDate>
+        <discount>2.0</discount>
+        <id>1252895840</id>
+        <name>aboba</name>
+        <person>
+            <eyeColor>GREEN</eyeColor>
+            <location>
+                <x>1</x>
+                <y>2</y>
+                <z>3</z>
+            </location>
+            <passportID>123456</passportID>
+        </person>
+        <price>100</price>
+    </ticket>
+</addIfMax>

@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    implementation 'com.sun.istack:istack-commons-runtime:3.0.12'
+    implementation 'jakarta.activation:jakarta.activation-api:2.0.0'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    implementation 'org.glassfish.jaxb:jaxb-core:4.0.5'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+}
+

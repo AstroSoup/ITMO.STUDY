@@ -1,0 +1,5 @@
+rootProject.name = '6_SixthLab'
+
+include 'server'
+include 'client'
+include 'shared'
