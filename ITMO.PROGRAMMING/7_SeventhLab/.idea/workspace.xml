@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2613633b-5e52-4200-a568-942f0ed42b52" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/auth/AuthHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/storage/DBHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/network/RequestHandleTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/network/SocketChannelWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/CommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/CommandProcessingTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/AddIfMaxStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/AddStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/AverageOfPriceStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CheckConnectionStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CheckIDStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CheckSizeStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/ClearStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CommandStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/InfoStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/InsertStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/LoginStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/PrintFieldAscendingTypeStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/PrintFieldDescendingTypeStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/RegisterStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/RemoveByIdStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/ReorderStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/ShowStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/UpdateStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/response/CommandResponseTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/response/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/AuthHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/command/Login.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/command/LoginCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/command/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ITMO.DATABASES/1_FirstLab/LabReport.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.DATABASES/1_FirstLab/LabReport.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/LabReport.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/LabReport.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/script.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ITMO.LINAL[DEPRECATED]/ThirdSection/Homework1.2/task4.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.LINAL[DEPRECATED]/ThirdSection/Homework1.2/task4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../5_FifthLab/saving_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../5_FifthLab/saving_file.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/client">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/server">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="7_SeventhLab" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AstroSoup&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AstroSoup/ITMO.STUDY.git&quot;,
+    &quot;accountId&quot;: &quot;91b167a2-bd96-4200-8d77-9d11b08240d0&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2wv7opqRvhgdbbPU6DqY8NmQm16" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.client [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/ITMO.STUDY/ITMO.PROGRAMMING/7_SeventhLab/client&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="server" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2613633b-5e52-4200-a568-942f0ed42b52" name="Changes" comment="" />
+      <created>1746910372530</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746910372530</updated>
+      <workItem from="1746910373579" duration="645000" />
+      <workItem from="1746911035424" duration="114000" />
+      <workItem from="1746911160629" duration="313000" />
+      <workItem from="1746911504433" duration="982000" />
+      <workItem from="1746912509161" duration="2096000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
