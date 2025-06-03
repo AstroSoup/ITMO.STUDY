@@ -1,0 +1,5 @@
+rootProject.name = '8_EighthLab'
+
+include 'server'
+include 'client'
+include 'shared'
