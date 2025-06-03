@@ -7,26 +7,6 @@
             <y>1.0</y>
         </coordinates>
         <creationDate>2025-03-03</creationDate>
-        <discount>10.0</discount>
-        <id>148914697</id>
-        <name>sussy</name>
-        <person>
-            <eyeColor>RED</eyeColor>
-            <location>
-                <x>1</x>
-                <y>1</y>
-                <z>1</z>
-            </location>
-            <passportID>12312121</passportID>
-        </person>
-        <price>100</price>
-    </tickets>
-    <tickets>
-        <coordinates>
-            <x>1.0</x>
-            <y>1.0</y>
-        </coordinates>
-        <creationDate>2025-03-03</creationDate>
         <discount>5.0</discount>
         <id>1760743886</id>
         <name>baka</name>

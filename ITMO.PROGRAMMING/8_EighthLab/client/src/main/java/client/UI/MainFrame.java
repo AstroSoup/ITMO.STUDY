@@ -1,5 +1,13 @@
 package client.UI;
 
+import client.Main;
+import client.utility.ClientCommandHandler;
+import client.utility.RequestSerializer;
+import shared.command.LongPoll;
+import shared.entity.Color;
+import shared.entity.Ticket;
+import shared.entity.TicketType;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -7,8 +15,11 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.time.LocalDate;
+import java.util.Vector;
 
-class MainFrame extends JFrame {
+public class MainFrame extends JFrame {
 
     private String username;
     private JTable table;
@@ -20,19 +31,18 @@ class MainFrame extends JFrame {
     private JButton sortToggleButton;
     private boolean ascending = true;
 
-    // Filtering controls (above the table)
     private JComboBox<String> filterColumnCombo;
     private JTextField filterTextField;
     private JButton applyFilterButton;
     private JButton clearFilterButton;
+    private JButton addTicketButton;
 
-    // The left commands panel itself (placeholder for future commands)
     private JPanel commandsPanel;
 
-    // The “burger” button that toggles commandsPanel visibility
     private JToggleButton burgerButton;
 
     public MainFrame(String username) {
+
         super("Main Dashboard");
         this.username = username;
 
@@ -41,24 +51,20 @@ class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // ==== TOP BAR: burger button + user label ====
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        // Burger button (☰) on the left
-        burgerButton = new JToggleButton("\u2630"); // Unicode “hamburger” icon
+        burgerButton = new JToggleButton("\u2630");
         burgerButton.setFont(new Font("Dialog", Font.PLAIN, 18));
         burgerButton.setFocusable(false);
         topBar.add(burgerButton, BorderLayout.WEST);
 
-        // “Logged in as: <username>” label in the center (left‐aligned)
         JLabel userLabel = new JLabel("Logged in as: " + username);
         userLabel.setFont(userLabel.getFont().deriveFont(Font.BOLD, 14f));
         topBar.add(userLabel, BorderLayout.CENTER);
 
         add(topBar, BorderLayout.NORTH);
 
-        // ==== LEFT COMMANDS PANEL (initially hidden) ====
         commandsPanel = new JPanel();
         commandsPanel.setPreferredSize(new Dimension(250, 0));
         commandsPanel.setBorder(
@@ -71,7 +77,8 @@ class MainFrame extends JFrame {
         );
         commandsPanel.setLayout(new BoxLayout(commandsPanel, BoxLayout.Y_AXIS));
 
-        // Placeholder for future commands
+
+        //TODO: add actual commands here
         commandsPanel.add(Box.createVerticalStrut(20));
         JButton placeholderBtn = new JButton("Future Command");
         placeholderBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -81,24 +88,22 @@ class MainFrame extends JFrame {
         commandsPanel.setVisible(false);
         add(commandsPanel, BorderLayout.WEST);
 
-        // ==== CENTER REGION: single‐line control panel above the table ====
+
         JPanel centerWrapper = new JPanel(new BorderLayout(5, 5));
 
-        // --- Control panel with centered FlowLayout ---
+
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        // SORT CONTROLS
-        controlPanel.add(new JLabel("Sort by:"));
-        sortColumnCombo = new JComboBox<>();
-        controlPanel.add(sortColumnCombo);
+//        controlPanel.add(new JLabel("Sort by:"));
+//        sortColumnCombo = new JComboBox<>();
+//        controlPanel.add(sortColumnCombo);
+//
+//        sortToggleButton = new JButton("Sort Asc");
+//        controlPanel.add(sortToggleButton);
+//
+//        // Add spacing before filter controls
+//        controlPanel.add(Box.createHorizontalStrut(20));
 
-        sortToggleButton = new JButton("Sort Asc");
-        controlPanel.add(sortToggleButton);
-
-        // Add spacing before filter controls
-        controlPanel.add(Box.createHorizontalStrut(20));
-
-        // FILTER CONTROLS
         controlPanel.add(new JLabel("Filter by:"));
         filterColumnCombo = new JComboBox<>();
         controlPanel.add(filterColumnCombo);
@@ -111,53 +116,68 @@ class MainFrame extends JFrame {
 
         clearFilterButton = new JButton("Clear Filter");
         controlPanel.add(clearFilterButton);
-
+        addTicketButton = new JButton("Add new ticket");
+        controlPanel.add(addTicketButton); // TODO: add logic for adding ticket
         centerWrapper.add(controlPanel, BorderLayout.NORTH);
 
-        // --- The JTable itself ---
-        String[] columnNames = {"ID", "Name", "Category", "Price"};
+        String[] columnNames = {"ID",
+                "Name",
+                "Price",
+                "Discount",
+                "Type",
+                "Coordinate X",
+                "Coordinate Y",
+                "Passport ID",
+                "Eye color",
+                "Location X",
+                "Location Y",
+                "Location Z",
+                "Creation date",
+                "Creator"};
         Object[][] data = {
-                {1, "Apple", "Fruit", 0.99},
-                {2, "Banana", "Fruit", 0.59},
-                {3, "Carrot", "Vegetable", 0.39},
-                {4, "Detergent", "Household", 5.49},
-                {5, "Eggs", "Dairy", 2.99},
-        };
+                {1, "Amogus", 100, 24, TicketType.VIP, 20, 30, "123321", Color.RED, 1,2,3, LocalDate.now(), "someguy"},
+                {2, "Baka", 200, 52, TicketType.USUAL, 20, 30, "7777777", Color.GREEN, 3,2,1, LocalDate.now(), "someguy"},
+                {3, "Lulich", 400, 3, TicketType.CHEAP, 20, 30, "4444444", Color.ORANGE, 1,2,2, LocalDate.now(), "someguy4"},
+                {4, "Pupa", 1000, 55, TicketType.BUDGETARY, 20, 30, "1333333", Color.RED, 1,2,4, LocalDate.now(), "someguy2"},
+                {5, "Lupa", 5, 11, null, 20, 30, "aaaaaaa21", Color.RED, 1,2,5, LocalDate.now(), "test"},
+        }; // TODO: actually populate table with tickets on creation
 
         tableModel = new DefaultTableModel(data, columnNames);
-        table = new JTable(tableModel);
+        table = new JTable(tableModel) {
+            public boolean isCellEditable(int row, int column) {
+                return false;  // all cells un-editable
+            }
+        };
         sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
 
-        // Populate combo boxes with column names
         for (String col : columnNames) {
-            sortColumnCombo.addItem(col);
+            //sortColumnCombo.addItem(col);
             filterColumnCombo.addItem(col);
         }
 
-        // Wire up sort toggle button
-        sortToggleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int colIndex = sortColumnCombo.getSelectedIndex();
-                if (colIndex < 0) return;
 
-                if (ascending) {
-                    sorter.setSortKeys(java.util.List.of(
-                            new RowSorter.SortKey(colIndex, SortOrder.ASCENDING)
-                    ));
-                    sortToggleButton.setText("Sort Desc");
-                } else {
-                    sorter.setSortKeys(java.util.List.of(
-                            new RowSorter.SortKey(colIndex, SortOrder.DESCENDING)
-                    ));
-                    sortToggleButton.setText("Sort Asc");
-                }
-                ascending = !ascending;
-            }
-        });
+//        sortToggleButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int colIndex = sortColumnCombo.getSelectedIndex();
+//                if (colIndex < 0) return;
+//
+//                if (ascending) {
+//                    sorter.setSortKeys(java.util.List.of(
+//                            new RowSorter.SortKey(colIndex, SortOrder.ASCENDING)
+//                    ));
+//                    sortToggleButton.setText("Sort Desc");
+//                } else {
+//                    sorter.setSortKeys(java.util.List.of(
+//                            new RowSorter.SortKey(colIndex, SortOrder.DESCENDING)
+//                    ));
+//                    sortToggleButton.setText("Sort Asc");
+//                }
+//                ascending = !ascending;
+//            }
+//        });
 
-        // Wire up filter buttons
         applyFilterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,7 +218,6 @@ class MainFrame extends JFrame {
 
         add(centerWrapper, BorderLayout.CENTER);
 
-        // ==== Action Listener for burgerButton (toggle commandsPanel) ====
         burgerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -209,11 +228,45 @@ class MainFrame extends JFrame {
         });
     }
 
-    /**
-     * If you later want to populate the table from code, you can do:
-     *   addRow(new Object[]{ val1, val2, val3, val4 });
-     */
+
     public void addRow(Object[] rowData) {
         tableModel.addRow(rowData);
     }
+
+    public void setTable(Vector<Ticket> v) {
+        tableModel = new DefaultTableModel();
+        String[] columnNames = {"ID",
+                "Name",
+                "Price",
+                "Discount",
+                "Type",
+                "Coordinate X",
+                "Coordinate Y",
+                "Passport ID",
+                "Eye color",
+                "Location X",
+                "Location Y",
+                "Location Z",
+                "Creation date",
+                "Creator"};
+        tableModel.setColumnIdentifiers(columnNames);
+        for (Ticket ticket : v) {
+            tableModel.addRow(new Object[]{ticket.getId(),
+                    ticket.getName(),
+                    ticket.getPrice(),
+                    ticket.getDiscount(),
+                    ticket.getType(),
+                    ticket.getCoordinates().getX(),
+                    ticket.getCoordinates().getY(),
+                    ticket.getPerson().getPassportID(),
+                    ticket.getPerson().getEyeColor(),
+                    ticket.getPerson().getLocation().getX(),
+                    ticket.getPerson().getLocation().getY(),
+                    ticket.getPerson().getLocation().getZ(),
+                    ticket.getCreationDate(),
+                    ticket.getCreator()});
+        }
+        table.setModel(tableModel);
+    }
+
 }

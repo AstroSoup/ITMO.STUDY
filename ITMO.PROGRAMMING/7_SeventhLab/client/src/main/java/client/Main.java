@@ -35,5 +35,6 @@ public class Main {
         textUI.output("Программа загружена успешно. Введите команду: ");
         Parser cParser = new ConsoleParser(textUI, invoker);
         cParser.read();
+
     }
 }

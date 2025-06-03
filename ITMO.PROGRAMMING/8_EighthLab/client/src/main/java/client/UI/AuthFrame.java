@@ -1,8 +1,10 @@
 package client.UI;
 
+import client.Main;
 import client.utility.ClientCommandHandler;
 import client.utility.NetworkHandler;
 import shared.command.Login;
+import shared.command.Register;
 import shared.exceptions.ConnectionLostException;
 
 import javax.swing.*;
@@ -92,15 +94,10 @@ public class AuthFrame extends JFrame {
                     return;
                 }
 
-                // TODO: replace with real authentication logic
-                boolean authenticated = fakeAuthenticate(username, password);
+                boolean authenticated = authenticate(username, password);
 
                 if (authenticated) {
-                    // On success, open MainFrame
-                    SwingUtilities.invokeLater(() -> {
-                        MainFrame main = new MainFrame(username);
-                        main.setVisible(true);
-                    });
+                    Main.openMainFrame(username);
                     AuthFrame.this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(
@@ -111,7 +108,7 @@ public class AuthFrame extends JFrame {
                     );
                 }
 
-                // Clear password for security
+
                 loginPasswordField.setText("");
             }
         });
@@ -125,7 +122,6 @@ public class AuthFrame extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Username label + field
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel.add(new JLabel("Username:"), gbc);
@@ -134,7 +130,6 @@ public class AuthFrame extends JFrame {
         gbc.gridx = 1;
         panel.add(registerUsernameField, gbc);
 
-        // Password label + field
         gbc.gridy = 1;
         gbc.gridx = 0;
         panel.add(new JLabel("Password:"), gbc);
@@ -143,7 +138,6 @@ public class AuthFrame extends JFrame {
         gbc.gridx = 1;
         panel.add(registerPasswordField, gbc);
 
-        // Confirm password label + field
         gbc.gridy = 2;
         gbc.gridx = 0;
         panel.add(new JLabel("Confirm Password:"), gbc);
@@ -152,7 +146,6 @@ public class AuthFrame extends JFrame {
         gbc.gridx = 1;
         panel.add(registerConfirmPasswordField, gbc);
 
-        // Register button
         registerButton = new JButton("Register");
         gbc.gridy = 3;
         gbc.gridx = 0;
@@ -190,7 +183,7 @@ public class AuthFrame extends JFrame {
                 }
 
                 // TODO: replace with real registration logic
-                boolean registered = fakeRegister(username, password);
+                boolean registered = register(username, password);
 
                 if (registered) {
                     JOptionPane.showMessageDialog(
@@ -221,11 +214,9 @@ public class AuthFrame extends JFrame {
         return panel;
     }
 
-    /**
-     * Stub authentication. Replace with hashed‐password + DB check.
-     */
-    private boolean fakeAuthenticate(String username, String password) {
-        ClientCommandHandler cch = new ClientCommandHandler(new NetworkHandler());
+
+    private boolean authenticate(String username, String password) {
+        ClientCommandHandler cch = Main.invoker;
         try {
             cch.invoke(new Login(username, password));
             return cch.getFeedback().trim().equals("Вы успешно вошли в аккаунт.");
@@ -234,11 +225,14 @@ public class AuthFrame extends JFrame {
         }
     }
 
-    /**
-     * Stub registration. Replace with a real “insert into user table” + hashing.
-     */
-    private boolean fakeRegister(String username, String password) {
-        // Simulate “username already taken” if username == "user"
-        return !"user".equals(username);
+
+    private boolean register(String username, String password) {
+        ClientCommandHandler cch = Main.invoker;
+        try {
+            cch.invoke(new Register(username, password));
+            return cch.getFeedback().trim().equals("Вы успешно зарегитрировались.");
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

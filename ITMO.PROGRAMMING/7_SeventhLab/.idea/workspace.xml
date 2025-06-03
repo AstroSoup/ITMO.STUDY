@@ -5,45 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2613633b-5e52-4200-a568-942f0ed42b52" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/auth/AuthHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/storage/DBHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/network/RequestHandleTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/network/SocketChannelWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/CommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/CommandProcessingTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/AddIfMaxStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/AddStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/AverageOfPriceStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CheckConnectionStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CheckIDStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CheckSizeStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/ClearStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/CommandStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/InfoStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/InsertStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/LoginStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/PrintFieldAscendingTypeStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/PrintFieldDescendingTypeStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/RegisterStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/RemoveByIdStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/ReorderStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/ShowStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/processing/strategies/UpdateStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/response/CommandResponseTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/utility/response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/AuthHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/command/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/command/LoginCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/shared/command/Register.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ITMO.DATABASES/1_FirstLab/LabReport.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.DATABASES/1_FirstLab/LabReport.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/LabReport.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/LabReport.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.DATABASES/2_SecondLab/script.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ITMO.LINAL[DEPRECATED]/ThirdSection/Homework1.2/task4.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ITMO.LINAL[DEPRECATED]/ThirdSection/Homework1.2/task4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../5_FifthLab/saving_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../5_FifthLab/saving_file.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +104,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="server" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -158,6 +139,11 @@
       <workItem from="1746911160629" duration="313000" />
       <workItem from="1746911504433" duration="982000" />
       <workItem from="1746912509161" duration="2096000" />
+      <workItem from="1747064833028" duration="48000" />
+      <workItem from="1747074741746" duration="888000" />
+      <workItem from="1747129606510" duration="197000" />
+      <workItem from="1747146002376" duration="3357000" />
+      <workItem from="1747509401305" duration="1242000" />
     </task>
     <servers />
   </component>
