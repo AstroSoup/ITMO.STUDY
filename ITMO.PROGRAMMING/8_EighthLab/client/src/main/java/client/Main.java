@@ -9,16 +9,25 @@ import client.utility.RequestSerializer;
 import shared.command.*;
 import client.parsers.*;
 import client.utility.TextUI;
+import shared.entity.Ticket;
+import shared.entity.TicketVectorWrapper;
+import shared.exceptions.ConnectionLostException;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Vector;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
     public static ClientCommandHandler invoker = new ClientCommandHandler();
     public static MainFrame mainframe;
+    public static long version = -1;
+
+
     public static void main(String[] args) throws IOException {
 
 
@@ -59,36 +68,61 @@ public class Main {
             networkHandler.openConnection();
             invoker = new ClientCommandHandler();
             invoker.setNetworkHandler(networkHandler);
-            networkHandler.setHandler(invoker);
+
         }
 
 
 
     }
-    public static void openMainFrame(String username) {
+    public static void openMainFrame(String username, String password) {
         SwingUtilities.invokeLater(() -> {
-            MainFrame mainframe = new MainFrame(username);
-            Thread polling = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        ClientCommandHandler cch = new ClientCommandHandler();
-                        NetworkHandler nh =  new NetworkHandler("", 3333);
-                        nh.openConnection();
-                        cch.setNetworkHandler(nh);
-                        while (true) {
-                            cch.invoke(new LongPoll());
-                            while (cch.getFeedback().isEmpty()) {
-                                wait();
+            MainFrame mainframe = new MainFrame(username, invoker);
+            mainframe.setVisible(true);
+
+            Thread polling = new Thread(() -> {
+                try {
+                    ClientCommandHandler cch = new ClientCommandHandler();
+                    NetworkHandler nh = new NetworkHandler("", 3333);
+                    nh.openConnection();
+                    cch.setNetworkHandler(nh);
+
+
+                    cch.invoke(new Login(username, password));
+
+                    cch.setFeedback("");
+
+                    while (true) {
+                        cch.invoke(new LongPoll(version));
+
+                        String xmlPayload = cch.getFeedback();
+
+                        cch.setFeedback("");
+
+                        if (xmlPayload != null && !xmlPayload.trim().isEmpty()) {
+                            TicketVectorWrapper tvw = new RequestSerializer().deserialize(xmlPayload);
+                            Vector<Ticket> collection = tvw.getTickets();
+
+                            if (!collection.isEmpty()) {
+                                version = tvw.getVersion();
+                                System.out.println(version);
+                                SwingUtilities.invokeLater(() -> {
+                                    mainframe.setTable(collection);
+                                });
                             }
-                            mainframe.setTable(new RequestSerializer().deserialize(cch.getFeedback()));
-                            cch.setFeedback("");
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                } catch (ConnectionLostException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
-            mainframe.setVisible(true);
+
+            polling.setDaemon(true);
+            polling.start();
         });
     }
+
 }

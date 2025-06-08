@@ -1,6 +1,7 @@
 package server.utility;
 
 import server.storage.DBHandler;
+import server.utility.processing.strategies.LongPollStrategy;
 import shared.entity.*;
 
 import java.io.InvalidObjectException;
@@ -17,7 +18,7 @@ public class CollectionHandler {
 
     private Vector<Ticket> collection = new Vector<>();
     private static final Logger COLLECTIONLOGGER = Logger.getLogger("server.utility.CollectionHandler");
-    public static boolean hasNewData = false;
+    public static long version = 0;
     public CollectionHandler() {
         try {
             this.setCollection(new DBHandler().readAllTickets());
@@ -45,7 +46,11 @@ public class CollectionHandler {
             if (!t.validate()) throw new InvalidObjectException("Ошибка в параметрах билета");
         }
         this.collection = collection;
-        hasNewData = true;
+
+        synchronized (LongPollStrategy.getLock()) {
+            //version++;
+            LongPollStrategy.getLock().notifyAll();
+        }
     }
 
     /**
@@ -56,7 +61,11 @@ public class CollectionHandler {
     public void add(Ticket ticket) throws InvalidObjectException {
         if (!ticket.validate()) throw new InvalidObjectException("Ошибка в параметрах билета");
         if (new DBHandler().write(ticket)) COLLECTIONLOGGER.fine("В коллекцию добавлен новый билет.");
-        hasNewData = true;
+
+        synchronized (LongPollStrategy.getLock()) {
+            version++;
+            LongPollStrategy.getLock().notifyAll();
+        }
     }
 
     /**
@@ -64,7 +73,11 @@ public class CollectionHandler {
      */
     public void clear() {
         if (new DBHandler().removeAll()) COLLECTIONLOGGER.fine("Коллекция очищена.");
-        hasNewData = true;
+
+        synchronized (LongPollStrategy.getLock()) {
+            version++;
+            LongPollStrategy.getLock().notifyAll();
+        }
     }
 
     /**
@@ -85,7 +98,11 @@ public class CollectionHandler {
      */
     public void remove(int id) throws InvalidObjectException {
         if (new DBHandler().remove(id)) COLLECTIONLOGGER.fine("Из коллекции удален билет № " + id);
-        hasNewData = true;
+
+        synchronized (LongPollStrategy.getLock()) {
+            version++;
+            LongPollStrategy.getLock().notifyAll();
+        }
     }
 
     /**
@@ -106,7 +123,11 @@ public class CollectionHandler {
 
     public void update(Ticket ticket) throws InvalidObjectException {
         if (new DBHandler().update(ticket)) COLLECTIONLOGGER.fine("Билет обновлен.");
-        hasNewData = true;
+
+        synchronized (LongPollStrategy.getLock()) {
+            version++;
+            LongPollStrategy.getLock().notifyAll();
+        }
     }
 }
 

@@ -1,7 +1,11 @@
 package shared.entity;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import shared.utility.LocalDateAdapter;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -14,15 +18,25 @@ import java.io.Serializable;
  * @author AstroSoup
  */
 @XmlRootElement
+    @XmlAccessorType(XmlAccessType.FIELD)
 public class Ticket implements Comparable<Ticket>, Validatable, Serializable {
+    @XmlElement
     private Integer id; //+Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    @XmlElement
     private String name; //Поле не может быть null, Строка не может быть пустой
+    @XmlElement
     private Coordinates coordinates; //Поле не может быть null
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate creationDate; //+Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    @XmlElement
     private Long price; //Поле не может быть null, Значение поля должно быть больше 0
+    @XmlElement
     private float discount; //Значение поля должно быть больше 0, Максимальное значение поля: 100
+    @XmlElement
     private TicketType type; //Поле может быть null
+    @XmlElement
     private Person person; //Поле не может быть null
+    @XmlElement
     private String creator = "";
 
 
@@ -89,41 +103,41 @@ public class Ticket implements Comparable<Ticket>, Validatable, Serializable {
         return type;
     }
 
-    @XmlElement
+
     public Long getPrice() {
         return price;
     }
 
-    @XmlElement
+
     public String getName() {
         return name;
     }
 
-    @XmlElement
+
     public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    @XmlElement
+
     public float getDiscount() {
         return discount;
     }
 
-    @XmlElement
+
     public Person getPerson() {
         return person;
     }
 
-    @XmlElement
+
     public Integer getId() {
         return id;
     }
 
-    @XmlElement
+
     public LocalDate getCreationDate() {
         return creationDate;
     }
-    @XmlElement
+
     public String getCreator() {
         return creator;
     }

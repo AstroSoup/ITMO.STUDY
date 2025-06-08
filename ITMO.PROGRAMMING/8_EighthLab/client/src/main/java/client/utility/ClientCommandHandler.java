@@ -32,27 +32,21 @@ public class ClientCommandHandler extends CommandHandler {
                 ((UsableCommand) cmd).setPassword(password);
             }
             try {
-
                 networkHandler.sendCommand((RemoteCommand) cmd);
-
+                this.setFeedback(networkHandler.receiveResponse());
             } catch (IOException e) {
-                //e.printStackTrace();
+
                 this.setFeedback("Отсутствует связь с сервером. Команда не была исполнена.");
                 throw new ConnectionLostException();
             }
 
-            if (cmd instanceof LoginCommand) {
-                try {
-                    networkHandler.sendCommand((RemoteCommand) cmd);
-                    this.setFeedback(networkHandler.receiveResponse());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (this.getFeedback().trim().equals("Вы успешно вошли в аккаунт.")  || this.getFeedback().trim().equals("Вы успешно зарегитрировались.")) {
-                    username = ((LoginCommand) cmd).getUsername();
-                    password = ((LoginCommand) cmd).getPassword();
-                }
+            if (this.getFeedback().trim().equals("Вы успешно вошли в аккаунт.")  || this.getFeedback().trim().equals("Вы успешно зарегитрировались.")) {
+                username = ((LoginCommand) cmd).getUsername();
+                password = ((LoginCommand) cmd).getPassword();
             }
+
+
+
         }
 
     }

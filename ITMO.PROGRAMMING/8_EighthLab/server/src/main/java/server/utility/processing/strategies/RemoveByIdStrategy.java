@@ -15,6 +15,7 @@ public class RemoveByIdStrategy implements CommandStrategy {
         CollectionHandler ch = new CollectionHandler();
         for (Ticket ticket : ch.getCollection()) {
             if (ticket.getId() == removeById.getId()) {
+                if (ticket.getCreator().equals(cmd.getUsername())) {
                 Response rsp;
                 try {
                     ch.remove(ticket.getId());
@@ -23,6 +24,7 @@ public class RemoveByIdStrategy implements CommandStrategy {
                     rsp = new Response(false, e.getMessage());
                 }
                 return rsp;
+                } else return new Response(true, "Билет с данным ID принадлежит другому пользователю");
             }
         }
         return new Response(true, "Билет с данным ID отсутствует в коллекции.");

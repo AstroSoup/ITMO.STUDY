@@ -1,5 +1,7 @@
 package shared.entity;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -11,8 +13,11 @@ import java.io.Serializable;
  * @author AstroSoup
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Coordinates implements Validatable, Serializable {
+    @XmlElement
     private Float x; //Максимальное значение поля: 952, Поле не может быть null
+    @XmlElement
     private Double y; //Поле не может быть null
 
     /**
@@ -29,12 +34,12 @@ public class Coordinates implements Validatable, Serializable {
     public Coordinates() {
     }
 
-    @XmlElement
+    
     public Float getX() {
         return x;
     }
 
-    @XmlElement
+    
     public Double getY() {
         return y;
     }

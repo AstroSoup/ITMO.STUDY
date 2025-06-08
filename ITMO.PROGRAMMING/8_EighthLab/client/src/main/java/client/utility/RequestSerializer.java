@@ -7,6 +7,7 @@ import jakarta.xml.bind.Unmarshaller;
 import shared.command.RemoteCommand;
 import shared.command.UsableCommand;
 import shared.entity.Ticket;
+import shared.entity.TicketVectorWrapper;
 
 import java.io.BufferedReader;
 import java.io.OutputStream;
@@ -34,11 +35,11 @@ public class RequestSerializer {
         }
     }
 
-    public synchronized Vector<Ticket> deserialize(String xml) throws Exception {
+    public synchronized TicketVectorWrapper deserialize(String xml) throws Exception {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Vector.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(TicketVectorWrapper.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (Vector<Ticket>) unmarshaller.unmarshal(new StringReader(xml.trim()));
+            return ((TicketVectorWrapper) unmarshaller.unmarshal(new StringReader(xml.trim())));
         } catch (JAXBException e) {
 
             e.printStackTrace();

@@ -18,7 +18,7 @@ public class NetworkHandler {
     private final int port;
     private Socket socket;
     private RequestSerializer serializer;
-    private ClientCommandHandler cch = null;
+
 
 
     public NetworkHandler(String host, int port) {
@@ -27,9 +27,6 @@ public class NetworkHandler {
     }
 
 
-    public void setHandler(ClientCommandHandler cch) {
-        this.cch = cch;
-    }
 
     public void openConnection() throws IOException {
         if (socket != null && !socket.isClosed()) {
@@ -39,28 +36,7 @@ public class NetworkHandler {
         serializer = new RequestSerializer(socket.getOutputStream());
         InputStream in = socket.getInputStream();
 
-//        Thread reader = new Thread(() -> {
-//            try {
-//                while (!socket.isClosed()) {
-//
-//                    String rsp = receiveResponse();
-//
-//                    System.out.println(rsp);
-//                    if (rsp.startsWith("<")) {
-//                        try {
-//                            Main.mainframe.setTable(serializer.deserialize(rsp));
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    } else {cch.setFeedback(rsp);}
-//                    System.out.println(cch.getFeedback());
-//                }
-//            } catch (IOException e) {
-//            }
-//        }, "NIO-Reader");
-//        reader.setDaemon(true);
-//        reader.start();
+
 
     }
 

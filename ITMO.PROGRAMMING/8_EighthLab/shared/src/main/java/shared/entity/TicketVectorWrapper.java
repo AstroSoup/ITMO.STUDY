@@ -1,7 +1,9 @@
 package shared.entity;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 
 import java.io.Serializable;
 import java.util.Vector;
@@ -12,9 +14,12 @@ import java.util.Vector;
  * @author AstroSoup
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TicketVectorWrapper implements Serializable {
+    @XmlElement
     private Vector<Ticket> tickets;
-    private String creationDT;
+    @XmlElement
+    private long version;
 
     public TicketVectorWrapper() {
         this.tickets = new Vector<>();
@@ -24,24 +29,22 @@ public class TicketVectorWrapper implements Serializable {
      * Конструктор
      *
      * @param tickets    Вектор содержащий объекты класса Ticket
-     * @param creationDT дата создания коллекции в строковом представлении
      */
-    public TicketVectorWrapper(Vector<Ticket> tickets, String creationDT) {
+    public TicketVectorWrapper(Vector<Ticket> tickets) {
         this.tickets = tickets;
-        this.creationDT = creationDT;
     }
 
-    @XmlElement
     public Vector<Ticket> getTickets() {
         return tickets;
     }
 
-    @XmlElement
-    public String getCDT() {
-        return creationDT;
+    public void setTickets(Vector<Ticket> tickets) {
+        this.tickets = tickets;
     }
-
-    public void setCDT(String creationDT) {
-        this.creationDT = creationDT;
+    public long getVersion() {
+        return version;
+    }
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

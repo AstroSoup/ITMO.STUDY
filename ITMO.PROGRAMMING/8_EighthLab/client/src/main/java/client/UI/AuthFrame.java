@@ -2,7 +2,7 @@ package client.UI;
 
 import client.Main;
 import client.utility.ClientCommandHandler;
-import client.utility.NetworkHandler;
+import client.utility.Localization;
 import shared.command.Login;
 import shared.command.Register;
 import shared.exceptions.ConnectionLostException;
@@ -12,38 +12,86 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class AuthFrame extends JFrame {
 
-    // ==== Components for Login tab ====
+    private JButton languageButton;
+    private JPopupMenu languageMenu;
+
+    private JTabbedPane tabbedPane;
+
+    private JLabel loginUsernameLabel;
     private JTextField loginUsernameField;
+    private JLabel loginPasswordLabel;
     private JPasswordField loginPasswordField;
     private JButton loginButton;
 
-    // ==== Components for Register tab ====
+    private JLabel registerUsernameLabel;
     private JTextField registerUsernameField;
+    private JLabel registerPasswordLabel;
     private JPasswordField registerPasswordField;
+    private JLabel registerConfirmPasswordLabel;
     private JPasswordField registerConfirmPasswordField;
     private JButton registerButton;
 
     public AuthFrame() {
-        setTitle("Authentication / Registration");
+        super();
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
-        setLocationRelativeTo(null); // center on screen
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        // Create a JTabbedPane with “Login” and “Register” tabs
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
+        add(tabbedPane, BorderLayout.CENTER);
 
-        // Create Login panel and add
-        JPanel loginPanel = createLoginPanel();
-        tabbedPane.addTab("Login", loginPanel);
+        tabbedPane.addTab("", createLoginPanel());
+        tabbedPane.addTab("", createRegisterPanel());
 
-        // Create Register panel and add
-        JPanel registerPanel = createRegisterPanel();
-        tabbedPane.addTab("Register", registerPanel);
+        JPanel bottomBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bottomBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        add(tabbedPane);
+        languageButton = new JButton();
+        languageButton.setFocusable(false);
+        bottomBar.add(languageButton);
+
+        languageMenu = new JPopupMenu();
+        for (Localization.Language lang : Localization.Language.values()) {
+            JMenuItem item = new JMenuItem(lang.getFlagEmoji() + "  " + lang.getDisplayName());
+            item.addActionListener(ev -> {
+                Localization.setLanguage(lang);
+                updateTexts();
+            });
+            languageMenu.add(item);
+        }
+        languageButton.addActionListener(e -> languageMenu.show(languageButton, 0, languageButton.getHeight()));
+
+        add(bottomBar, BorderLayout.SOUTH);
+
+        updateTexts();
     }
+
+    private void updateTexts() {
+        setTitle(Localization.get("auth.title"));
+
+        tabbedPane.setTitleAt(0, Localization.get("tab.login"));
+        tabbedPane.setTitleAt(1, Localization.get("tab.register"));
+
+        loginUsernameLabel.setText(Localization.get("label.username"));
+        loginPasswordLabel.setText(Localization.get("label.password"));
+        loginButton.setText(Localization.get("button.login"));
+
+        registerUsernameLabel.setText(Localization.get("label.username"));
+        registerPasswordLabel.setText(Localization.get("label.password"));
+        registerConfirmPasswordLabel.setText(Localization.get("label.confirm_password"));
+        registerButton.setText(Localization.get("button.register"));
+
+        Localization.Language current = Localization.getLanguage();
+        languageButton.setText(current.getFlagEmoji());
+
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
 
     private JPanel createLoginPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
@@ -51,26 +99,25 @@ public class AuthFrame extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Username label + field
+        loginUsernameLabel = new JLabel();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Username:"), gbc);
+        panel.add(loginUsernameLabel, gbc);
 
         loginUsernameField = new JTextField(20);
         gbc.gridx = 1;
         panel.add(loginUsernameField, gbc);
 
-        // Password label + field
+        loginPasswordLabel = new JLabel();
         gbc.gridy = 1;
         gbc.gridx = 0;
-        panel.add(new JLabel("Password:"), gbc);
+        panel.add(loginPasswordLabel, gbc);
 
         loginPasswordField = new JPasswordField(20);
         gbc.gridx = 1;
         panel.add(loginPasswordField, gbc);
 
-        // Login button
-        loginButton = new JButton("Login");
+        loginButton = new JButton();
         gbc.gridy = 2;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
@@ -81,33 +128,30 @@ public class AuthFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = loginUsernameField.getText().trim();
-                char[] passwordChars = loginPasswordField.getPassword();
-                String password = new String(passwordChars);
+                String password = new String(loginPasswordField.getPassword());
 
                 if (username.isEmpty() || password.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             AuthFrame.this,
-                            "Please enter both username and password.",
-                            "Missing Information",
+                            Localization.get("msg.enter_both"),
+                            Localization.get("title.missing_info"),
                             JOptionPane.WARNING_MESSAGE
                     );
                     return;
                 }
 
                 boolean authenticated = authenticate(username, password);
-
                 if (authenticated) {
-                    Main.openMainFrame(username);
+                    Main.openMainFrame(username, password);
                     AuthFrame.this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(
                             AuthFrame.this,
-                            "Invalid username or password.",
-                            "Authentication Failed",
+                            Localization.get("msg.invalid_credentials"),
+                            Localization.get("title.auth_failed"),
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
-
 
                 loginPasswordField.setText("");
             }
@@ -122,31 +166,34 @@ public class AuthFrame extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        registerUsernameLabel = new JLabel();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Username:"), gbc);
+        panel.add(registerUsernameLabel, gbc);
 
         registerUsernameField = new JTextField(20);
         gbc.gridx = 1;
         panel.add(registerUsernameField, gbc);
 
+        registerPasswordLabel = new JLabel();
         gbc.gridy = 1;
         gbc.gridx = 0;
-        panel.add(new JLabel("Password:"), gbc);
+        panel.add(registerPasswordLabel, gbc);
 
         registerPasswordField = new JPasswordField(20);
         gbc.gridx = 1;
         panel.add(registerPasswordField, gbc);
 
+        registerConfirmPasswordLabel = new JLabel();
         gbc.gridy = 2;
         gbc.gridx = 0;
-        panel.add(new JLabel("Confirm Password:"), gbc);
+        panel.add(registerConfirmPasswordLabel, gbc);
 
         registerConfirmPasswordField = new JPasswordField(20);
         gbc.gridx = 1;
         panel.add(registerConfirmPasswordField, gbc);
 
-        registerButton = new JButton("Register");
+        registerButton = new JButton();
         gbc.gridy = 3;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
@@ -163,8 +210,8 @@ public class AuthFrame extends JFrame {
                 if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             AuthFrame.this,
-                            "Please fill in all fields.",
-                            "Missing Information",
+                            Localization.get("msg.fill_all_fields"),
+                            Localization.get("title.missing_info"),
                             JOptionPane.WARNING_MESSAGE
                     );
                     return;
@@ -173,8 +220,8 @@ public class AuthFrame extends JFrame {
                 if (!password.equals(confirmPassword)) {
                     JOptionPane.showMessageDialog(
                             AuthFrame.this,
-                            "Passwords do not match.",
-                            "Validation Error",
+                            Localization.get("msg.passwords_not_match"),
+                            Localization.get("title.validation_error"),
                             JOptionPane.WARNING_MESSAGE
                     );
                     registerPasswordField.setText("");
@@ -182,29 +229,24 @@ public class AuthFrame extends JFrame {
                     return;
                 }
 
-                // TODO: replace with real registration logic
                 boolean registered = register(username, password);
-
                 if (registered) {
                     JOptionPane.showMessageDialog(
                             AuthFrame.this,
-                            "Registration successful! You can now log in.",
-                            "Success",
+                            Localization.get("msg.registration_success"),
+                            Localization.get("title.success"),
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    // Automatically switch to Login tab
-                    JTabbedPane tabs = (JTabbedPane) AuthFrame.this.getContentPane().getComponent(0);
-                    tabs.setSelectedIndex(0);
+                    tabbedPane.setSelectedIndex(0);
                 } else {
                     JOptionPane.showMessageDialog(
                             AuthFrame.this,
-                            "Registration failed. Username may already exist.",
-                            "Error",
+                            Localization.get("msg.registration_failed"),
+                            Localization.get("title.error"),
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
 
-                // Clear all fields
                 registerUsernameField.setText("");
                 registerPasswordField.setText("");
                 registerConfirmPasswordField.setText("");
@@ -214,24 +256,24 @@ public class AuthFrame extends JFrame {
         return panel;
     }
 
-
     private boolean authenticate(String username, String password) {
         ClientCommandHandler cch = Main.invoker;
         try {
             cch.invoke(new Login(username, password));
-            return cch.getFeedback().trim().equals("Вы успешно вошли в аккаунт.");
-        } catch (Exception e) {
+            String fb = cch.getFeedback().trim();
+            return fb.equals("Вы успешно вошли в аккаунт.");
+        } catch (ConnectionLostException e) {
             return false;
         }
     }
-
 
     private boolean register(String username, String password) {
         ClientCommandHandler cch = Main.invoker;
         try {
             cch.invoke(new Register(username, password));
-            return cch.getFeedback().trim().equals("Вы успешно зарегитрировались.");
-        } catch (Exception e) {
+            String fb = cch.getFeedback().trim();
+            return fb.equals("Вы успешно зарегитрировались.");
+        } catch (ConnectionLostException e) {
             return false;
         }
     }

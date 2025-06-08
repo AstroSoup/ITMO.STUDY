@@ -17,6 +17,7 @@ java {
 }
 
 dependencies {
+
     implementation 'com.sun.istack:istack-commons-runtime:3.0.12'
     implementation 'jakarta.activation:jakarta.activation-api:2.0.0'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'

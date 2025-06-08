@@ -1,5 +1,7 @@
 package shared.entity;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -11,9 +13,13 @@ import java.io.Serializable;
  * @author AstroSoup
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person implements Validatable, Serializable {
+    @XmlElement
     private String passportID; //Строка не может быть пустой, Длина строки должна быть не меньше 6, Длина строки не должна быть больше 28, Поле не может быть null
+    @XmlElement
     private Color eyeColor; //Поле может быть null
+    @XmlElement
     private Location location; //Поле может быть null
 
     /**
@@ -32,17 +38,17 @@ public class Person implements Validatable, Serializable {
     public Person() {
     }
 
-    @XmlElement
+    
     public String getPassportID() {
         return passportID;
     }
 
-    @XmlElement
+    
     public Location getLocation() {
         return location;
     }
 
-    @XmlElement
+    
     public Color getEyeColor() {
         return eyeColor;
     }

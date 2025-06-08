@@ -2,10 +2,7 @@ package shared.entity;
 
 
 import jakarta.xml.bind.Element;
-import jakarta.xml.bind.annotation.XmlAnyElement;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,9 +13,13 @@ import java.util.List;
  * @author AstroSoup
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Location implements Validatable, Serializable {
+    @XmlElement
     private long x;
+    @XmlElement
     private Long y; //Поле не может быть null
+    @XmlElement
     private long z;
 
     /**
@@ -37,17 +38,17 @@ public class Location implements Validatable, Serializable {
     public Location() {
     }
 
-    @XmlElement
+    
     public long getX() {
         return x;
     }
 
-    @XmlElement
+    
     public Long getY() {
         return y;
     }
 
-    @XmlElement
+    
     public long getZ() {
         return z;
     }
