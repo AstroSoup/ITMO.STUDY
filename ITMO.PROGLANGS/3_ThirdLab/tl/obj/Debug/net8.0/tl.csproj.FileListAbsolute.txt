@@ -1,0 +1,15 @@
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/bin/Debug/net8.0/tl
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/bin/Debug/net8.0/tl.deps.json
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/bin/Debug/net8.0/tl.runtimeconfig.json
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/bin/Debug/net8.0/tl.dll
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/bin/Debug/net8.0/tl.pdb
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.GeneratedMSBuildEditorConfig.editorconfig
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.AssemblyInfoInputs.cache
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.AssemblyInfo.cs
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.csproj.CoreCompileInputs.cache
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.sourcelink.json
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.dll
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/refint/tl.dll
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.pdb
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/tl.genruntimeconfig.cache
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/3_ThirdLab/tl/obj/Debug/net8.0/ref/tl.dll

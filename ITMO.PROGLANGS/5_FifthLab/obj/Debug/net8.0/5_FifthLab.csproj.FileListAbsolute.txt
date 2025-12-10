@@ -1,0 +1,15 @@
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/bin/Debug/net8.0/5_FifthLab
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/bin/Debug/net8.0/5_FifthLab.deps.json
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/bin/Debug/net8.0/5_FifthLab.runtimeconfig.json
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/bin/Debug/net8.0/5_FifthLab.dll
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/bin/Debug/net8.0/5_FifthLab.pdb
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.GeneratedMSBuildEditorConfig.editorconfig
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.AssemblyInfoInputs.cache
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.AssemblyInfo.cs
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.csproj.CoreCompileInputs.cache
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.sourcelink.json
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.dll
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/refint/5_FifthLab.dll
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.pdb
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/5_FifthLab.genruntimeconfig.cache
+/home/astro_soup/UserData/ITMO.STUDY/ITMO.PROGLANGS/5_FifthLab/obj/Debug/net8.0/ref/5_FifthLab.dll
