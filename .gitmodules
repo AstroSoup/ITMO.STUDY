@@ -1,0 +1,12 @@
+[submodule "ITMO.WEB/1_FirstLab"]
+	path = ITMO.WEB/1_FirstLab
+	url = https://github.com/AstroSoup/web-lab-1.git
+[submodule "ITMO.WEB/2_SecondLab"]
+	path = ITMO.WEB/2_SecondLab
+	url = https://github.com/AstroSoup/web-lab-2.git
+[submodule "ITMO.WEB/3_ThirdLab"]
+	path = ITMO.WEB/3_ThirdLab
+	url = https://github.com/AstroSoup/web-lab-3.git
+[submodule "ITMO.WEB/4_FourthLab"]
+	path = ITMO.WEB/4_FourthLab
+	url = https://github.com/AstroSoup/web-lab-4.git
