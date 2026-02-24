@@ -6,7 +6,7 @@
 	url = https://github.com/AstroSoup/web-lab-2.git
 [submodule "web_programming/3_ThirdLab"]
 	path = web_programming/3_ThirdLab
-	url = https://github.com/AstroSoup/web-lab-3.git
+	url = git@github.com:AstroSoup/web-lab-3.git
 [submodule "web_programming/4_FourthLab"]
 	path = web_programming/4_FourthLab
 	url = https://github.com/AstroSoup/web-lab-4.git
