@@ -10,3 +10,6 @@
 [submodule "web_programming/4_FourthLab"]
 	path = web_programming/4_FourthLab
 	url = https://github.com/AstroSoup/web-lab-4.git
+[submodule "computational_mathematics/1_FirstLab"]
+	path = computational_mathematics/1_FirstLab
+	url = git@github.com:AstroSoup/computational-mathematics-lab-1.git
