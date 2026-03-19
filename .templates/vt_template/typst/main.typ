@@ -41,12 +41,15 @@
 #show heading: set align(left)
 #show heading: set text(size: 14pt)
 #set heading(numbering: "1.",)
-#set enum(numbering: "  1)")
+#show heading: pad.with(left: 1.25cm)
+#set enum(numbering: "1)")
 #set par(
-  first-line-indent: (all: true, amount: 1em),
-  hanging-indent: 1em,
+  first-line-indent: (all: true, amount: 1.25cm),
   justify: true,
 )
+
+
+
 #set figure.caption(separator: [ --- ])
 
 #let style-number(number) = text(gray)[#number:]
@@ -61,4 +64,6 @@
     .flatten()
 )
 
+
 #include "content.typ"
+

@@ -29,17 +29,23 @@
 #context lab_title_first_row.update("");
 #context lab_title_second_row.update("")
 
+#set page(
+  margin: 1.5cm,
+  numbering: ("1")
+)
+
 #include "titlePage.typ"
 
 #show heading: set align(left)
 #show heading: set text(size: 14pt)
 #set heading(numbering: "1.",)
-#set enum(numbering: "  1)")
+#show heading: pad.with(left: 1.25cm)
+#set enum(numbering: "1)")
 #set par(
-  first-line-indent: (all: true, amount: 1em),
-  hanging-indent: 1em,
+  first-line-indent: (all: true, amount: 1.25cm),
   justify: true,
 )
+
 #set figure.caption(separator: [ --- ])
 
 #let style-number(number) = text(gray)[#number:]
