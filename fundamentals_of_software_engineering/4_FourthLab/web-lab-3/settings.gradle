@@ -1,0 +1,1 @@
+rootProject.name = "web-lab-3"

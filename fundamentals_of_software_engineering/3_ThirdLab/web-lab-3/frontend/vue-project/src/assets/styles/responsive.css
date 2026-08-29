@@ -1,0 +1,152 @@
+/* =============================================================
+   Responsive Layouts for Desktop, Tablet, and Mobile
+   Generated automatically for your Vue 3 project
+   ============================================================= */
+
+/* Base (applies to all unless overridden) */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Global adjustments */
+.container, .page, .main, .wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =============================================================
+   DESKTOP (≥ 1119px)
+   ============================================================= */
+@media (min-width: 1119px) {
+  .Header, header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+  }
+
+  .Footer, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+  }
+
+  .MainPage, .StartPage {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+  }
+
+  .Table, table {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .ComboBox, select {
+    width: 300px;
+    font-size: 1rem;
+  }
+
+  .GraphCanvas, canvas {
+    width: 800px;
+    height: 500px;
+  }
+
+  .PopupWindow {
+    width: 600px;
+    height: auto;
+  }
+}
+
+/* =============================================================
+   TABLET (≥ 885px and < 1119px)
+   ============================================================= */
+@media (min-width: 885px) and (max-width: 1118px) {
+  .Header, header {
+    flex-direction: row;
+    padding: 1rem 2rem;
+  }
+
+  .Footer, footer {
+    flex-direction: row;
+    padding: 1rem 2rem;
+  }
+
+  .MainPage, .StartPage {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .Table, table {
+    font-size: 0.95rem;
+  }
+
+  .ComboBox, select {
+    width: 250px;
+  }
+
+  .GraphCanvas, canvas {
+    width: 600px;
+    height: 400px;
+  }
+
+  .PopupWindow {
+    width: 500px;
+  }
+}
+
+/* =============================================================
+   MOBILE (< 885px)
+   ============================================================= */
+@media (max-width: 884px) {
+  .Header, header, .Footer, footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.75rem 1rem;
+  }
+
+  .MainPage, .StartPage {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .Table, table {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .ComboBox, select {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .GraphCanvas, canvas {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+
+  .PopupWindow {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .Spinner {
+    transform: scale(0.8);
+  }
+}

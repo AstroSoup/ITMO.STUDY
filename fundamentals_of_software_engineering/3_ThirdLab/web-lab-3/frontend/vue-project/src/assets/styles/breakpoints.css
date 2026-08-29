@@ -1,0 +1,16 @@
+/* === GLOBAL BREAKPOINTS === */
+
+/* Мобильный (<885px) */
+@media (max-width: 884px) {
+  .mobile-hidden { display: none !important; }
+}
+
+/* Планшет (885px ≤ width < 1119px) */
+@media (min-width: 885px) and (max-width: 1118px) {
+  .tablet-hidden { display: none !important; }
+}
+
+/* Десктоп (≥1119px) */
+@media (min-width: 1119px) {
+  .desktop-hidden { display: none !important; }
+}

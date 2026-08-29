@@ -1,0 +1,24 @@
+# top-right
+1, 1.52, 3,
+# border
+2, 2.23, 3,
+
+# top-left
+0, 1, 1,
+# border
+-1, 3, 3,
+
+#bottom-left
+-1, -0.47, 3,
+# border
+0, -3, 3,
+
+# top-right to top-left
+0, 2, 3,
+# top-left to bottom-left
+-1, 0, 3,
+# bottom-left to bottom-right
+0, -1.57, 3,
+# bottom-right to top-right
+1, 0, 3,
+

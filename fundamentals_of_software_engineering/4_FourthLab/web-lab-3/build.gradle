@@ -1,0 +1,372 @@
+buildscript {
+    repositories { mavenCentral() }
+    dependencies {
+        classpath 'com.github.javaparser:javaparser-core:3.28.1'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'war'
+    id('io.ebean') version '14.1.0'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+ext {
+    junitVersion = '5.10.2'
+    mockitoVersion = '5.23.0'
+    seleniumVersion = '4.41.0'
+}
+
+base {
+    archivesName = 'ROOT'
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation('io.ebean:ebean-postgres:14.1.0')
+    compileOnly('jakarta.platform:jakarta.jakartaee-api:11.0.0')
+    compileOnly("org.projectlombok:lombok:1.18.42")
+
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+    annotationProcessor('io.ebean:querybean-generator:14.1.0')
+
+    implementation("de.mkammerer:argon2-jvm:2.11")
+    implementation("org.eclipse.microprofile.jwt:microprofile-jwt-auth-api:2.1")
+    implementation("jakarta.json:jakarta.json-api:2.1.2")
+    implementation("org.postgresql:postgresql:42.7.3")
+    runtimeOnly("org.eclipse.parsson:parsson:1.1.5")
+    implementation("io.ebean:ebean-ddl-generator:17.1.0")
+
+    implementation("org.jboss.weld.se:weld-se-core:3.0.6.Final")
+    implementation("org.jboss.weld.module:weld-web:3.0.6.Final")
+
+    testImplementation("org.mockito:mockito-core:${mockitoVersion}")
+    testImplementation("org.mockito:mockito-junit-jupiter:${mockitoVersion}")
+
+    testImplementation("org.jboss.weld:weld-junit5:5.0.3.Final")
+
+    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    testImplementation "org.seleniumhq.selenium:selenium-grid:${seleniumVersion}"
+
+    testCompileOnly("org.projectlombok:lombok:1.18.42")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.register('myCompile', MyJavaCompile) {
+    source.from fileTree('src/main/java')
+    processorClasspath.from configurations.annotationProcessor
+    compileClasspath.from configurations.compileClasspath
+    destinationDirectory = layout.buildDirectory.dir('my-classes')
+    resources.from fileTree('src/main/resources')
+}
+
+tasks.register('buildWar', MyBuildWar) {
+    sourceDirectory = layout.buildDirectory.dir('my-classes')
+    baseName = base.archivesName.get()
+    runtimeClasspath.from configurations.runtimeClasspath
+    outputFile = layout.buildDirectory.file('libs/' + base.archivesName.get() + '.war')
+}
+tasks.register('myClean', Delete) {
+    delete layout.buildDirectory
+}
+
+tasks.register('myTest', Test) {
+    dependsOn myBuild
+    useJUnitPlatform()
+    jvmArgs "-javaagent:${configurations.testRuntimeClasspath.find { it.name.contains('mockito-core') }}"
+}
+
+tasks.register('music') {
+    dependsOn myBuild
+    doLast {
+        def process = ['ffplay', '-nodisp', 'https://pool.anison.fm/AniSonFM(320)?nocache=0.7628170478546088'].execute()
+
+        sleep(1000 * 20)
+        process.destroy()
+    }
+}
+
+tasks.register('alt', MyJavaCompile) {
+    dependsOn uwuifySources
+    source.from fileTree(layout.buildDirectory.dir('uwu-src'))
+    processorClasspath.from configurations.annotationProcessor
+    compileClasspath.from configurations.compileClasspath
+    destinationDirectory = layout.buildDirectory.dir('my-classes')
+    resources.from fileTree('src/main/resources')
+    finalizedBy buildWar
+}
+
+tasks.register('uwuifySources', UwuifySourcesTask) {
+    sourceDirectory = layout.projectDirectory.dir('src/main/java')
+    outputDirectory = layout.buildDirectory.dir('uwu-src')
+    finalizedBy alt
+}
+
+tasks.register('myBuild') {
+    dependsOn 'myCompile'
+    finalizedBy 'buildWar'
+}
+
+
+tasks.named('buildWar') {
+    doFirst {
+        def requested = gradle.startParameter.taskNames
+        if (requested.contains('buildWar')) {
+            throw new GradleException(
+                    "Do not invoke 'buildWar' directly. Use 'myBuild' or 'alt' instead."
+            )
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs "-javaagent:${configurations.testRuntimeClasspath.find { it.name.contains('mockito-core') }}"
+}
+
+// Task types
+import com.github.javaparser.ParserConfiguration
+import com.github.javaparser.JavaParser
+import com.github.javaparser.ast.CompilationUnit
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
+import java.util.regex.Pattern
+
+abstract class MyJavaCompile extends DefaultTask {
+    @InputFiles
+    abstract ConfigurableFileCollection getSource()
+    @InputFiles
+    abstract ConfigurableFileCollection getCompileClasspath()
+    @InputFiles
+    abstract ConfigurableFileCollection getProcessorClasspath()
+    @InputFiles
+    abstract ConfigurableFileCollection getResources()
+
+    @OutputDirectory
+    abstract DirectoryProperty getDestinationDirectory()
+
+    @Inject
+    abstract ExecOperations getExecOperations()
+    @Inject
+    abstract FileSystemOperations getFileSystemOperations()
+
+    @TaskAction
+    void compile() {
+        def destDir = destinationDirectory.get().asFile
+        destDir.mkdirs()
+
+        File generatedSourcesDir = new File(getTemporaryDir(), 'generated-sources')
+        generatedSourcesDir.mkdirs()
+
+        def sourceFiles = source.filter { it.name.endsWith('.java') }*.absolutePath
+        def cp = compileClasspath.asPath
+        def processorPath = processorClasspath.asPath
+
+        execOperations.exec {
+            commandLine = ['javac',
+                           '-cp', cp,
+                           '-processorpath', processorPath,
+                           '-s', generatedSourcesDir.absolutePath,
+                           '-d', destDir.absolutePath,
+                           *sourceFiles
+            ]
+        }
+        fileSystemOperations.copy {
+            from resources
+            into destinationDirectory
+        }
+    }
+}
+
+abstract class MyBuildWar extends DefaultTask {
+    @Input
+    abstract Property<String> getBaseName()
+    @InputDirectory
+    abstract DirectoryProperty getSourceDirectory()
+    @InputFiles
+    abstract ConfigurableFileCollection getRuntimeClasspath()
+    @Inject
+    abstract ExecOperations getExecOperations()
+    @OutputFile
+    abstract RegularFileProperty getOutputFile()
+
+
+    @TaskAction
+    void build() {
+        File stagingDir = getTemporaryDir()
+        File classesDir = new File(stagingDir, 'WEB-INF/classes')
+        File libDir = new File(stagingDir, 'WEB-INF/lib')
+        classesDir.mkdirs()
+        libDir.mkdirs()
+
+        File srcDir = sourceDirectory.get().asFile
+        srcDir.eachFileRecurse { File f ->
+            if (f.isFile()) {
+                String rel = srcDir.toURI().relativize(f.toURI()).toString()
+                File dest = new File(classesDir, rel)
+                dest.parentFile.mkdirs()
+                dest.bytes = f.bytes
+            }
+        }
+        runtimeClasspath.each { File jar ->
+            new File(libDir, jar.name).bytes = jar.bytes
+        }
+
+        String outputPath = outputFile.get().asFile.absolutePath
+        String stagingPath = stagingDir.absolutePath
+
+        execOperations.exec {
+            commandLine = ['jar', '-cf', outputPath, '-C', stagingPath, '.']
+        }
+    }
+}
+
+abstract class UwuifySourcesTask extends DefaultTask {
+    @InputDirectory
+    abstract DirectoryProperty getSourceDirectory()
+    @OutputDirectory
+    abstract DirectoryProperty getOutputDirectory()
+
+    static String uwuifyString(String word) {
+        word.replaceAll('r', 'w')
+                .replaceAll('l', 'w')
+                .replaceAll('R', 'W')
+                .replaceAll('L', 'W')
+    }
+
+    @TaskAction
+    void execute() {
+        File sourceDir = sourceDirectory.get().asFile
+        File outputDir = outputDirectory.get().asFile
+        outputDir.mkdirs()
+
+        List<File> javaFiles = []
+        sourceDir.eachFileRecurse { File f ->
+            if (f.isFile() && f.name.endsWith('.java')) {
+                javaFiles.add(f)
+            }
+        }
+
+        Map<String, String> classNameMappings = [:]
+        Map<String, Map<String, String>> fileFieldMappings = [:]
+        Map<String, String> fileRenames = [:]
+
+        javaFiles.each { File sourceFile ->
+            ParserConfiguration config = new ParserConfiguration()
+            config.setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17)
+            def parser = new JavaParser(config)
+            CompilationUnit cu = parser.parse(sourceFile).result.get()
+            Map<String, String> fieldMappings = [:]
+
+            cu.findAll(ClassOrInterfaceDeclaration.class).each { ClassOrInterfaceDeclaration clazz ->
+                String oldClassName = clazz.nameAsString
+                String newClassName = uwuifyString(oldClassName)
+                classNameMappings[oldClassName] = newClassName
+
+                String newFileName = newClassName + '.java'
+                if (sourceFile.name != newFileName) {
+                    fileRenames[sourceFile.absolutePath] = newFileName
+                }
+
+                boolean hasLombokAnnotation = clazz.annotations.any { ann ->
+                    String annName = ann.nameAsString
+                    annName in ['Data', 'Getter', 'Setter']
+                }
+
+                if (hasLombokAnnotation) {
+                    clazz.fields.each { field ->
+                        field.variables.each { var ->
+                            String oldFieldName = var.nameAsString
+                            String newFieldName = uwuifyString(oldFieldName)
+                            fieldMappings[oldFieldName] = newFieldName
+                        }
+                    }
+                }
+            }
+
+            fileFieldMappings[sourceFile.absolutePath] = fieldMappings
+        }
+
+        javaFiles.each { File sourceFile ->
+            String content = sourceFile.text
+            Map<String, String> currentFileFieldMappings = fileFieldMappings[sourceFile.absolutePath] ?: [:]
+
+            classNameMappings.each { oldName, newName ->
+                if (oldName != newName) {
+                    content = content.replaceAll('class\\s+' + Pattern.quote(oldName) + '\\b', 'class ' + newName)
+                    content = content.replaceAll('interface\\s+' + Pattern.quote(oldName) + '\\b', 'interface ' + newName)
+
+                    content = content.replaceAll('public\\s+' + Pattern.quote(oldName) + '\\s*\\(', 'public ' + newName + '(')
+                    content = content.replaceAll('protected\\s+' + Pattern.quote(oldName) + '\\s*\\(', 'protected ' + newName + '(')
+                    content = content.replaceAll('private\\s+' + Pattern.quote(oldName) + '\\s*\\(', 'private ' + newName + '(')
+
+                    content = content.replaceAll('new\\s+' + Pattern.quote(oldName) + '\\s*\\(', 'new ' + newName + '(')
+                    content = content.replaceAll('new\\s+' + Pattern.quote(oldName) + '<', 'new ' + newName + '<')
+
+                    content = content.replaceAll('\\s' + Pattern.quote(oldName) + '\\s', ' ' + newName + ' ')
+                    content = content.replaceAll('\\s' + Pattern.quote(oldName) + '<', ' ' + newName + '<')
+                    content = content.replaceAll('\\(' + Pattern.quote(oldName) + '\\b', '(' + newName)
+                    content = content.replaceAll(',\\s*' + Pattern.quote(oldName) + '\\b', ', ' + newName)
+                    content = content.replaceAll('\\s' + Pattern.quote(oldName) + ',', ' ' + newName + ',')
+                    content = content.replaceAll('<' + Pattern.quote(oldName) + '>', '<' + newName + '>')
+
+                    content = content.replaceAll('\\b' + Pattern.quote(oldName) + '\\.class\\b', newName + '.class')
+
+                    content = content.replaceAll('\\.' + Pattern.quote(oldName) + ';', '.' + newName + ';')
+
+                    content = content.replaceAll('throws\\s+' + Pattern.quote(oldName) + '\\b', 'throws ' + newName)
+                }
+            }
+
+            fileFieldMappings.values().each { fileFieldMap ->
+                fileFieldMap.each { oldFieldName, newFieldName ->
+                    if (oldFieldName != newFieldName) {
+                        String getterName = 'get' + oldFieldName.substring(0,1).toUpperCase() + oldFieldName.substring(1)
+                        String newGetterName = 'get' + newFieldName.substring(0,1).toUpperCase() + newFieldName.substring(1)
+                        content = content.replaceAll('\\.' + Pattern.quote(getterName) + '\\s*\\(', '.' + newGetterName + '(')
+
+                        String setterName = 'set' + oldFieldName.substring(0,1).toUpperCase() + oldFieldName.substring(1)
+                        String newSetterName = 'set' + newFieldName.substring(0,1).toUpperCase() + newFieldName.substring(1)
+                        content = content.replaceAll('\\.' + Pattern.quote(setterName) + '\\s*\\(', '.' + newSetterName + '(')
+                    }
+                }
+            }
+
+            currentFileFieldMappings.each { oldFieldName, newFieldName ->
+                if (oldFieldName != newFieldName) {
+                    content = content.replaceAll('this\\s*\\.\\s*' + Pattern.quote(oldFieldName) + '\\b', 'this.' + newFieldName)
+
+                    content = content.replaceAll('super\\s*\\.\\s*' + Pattern.quote(oldFieldName) + '\\b', 'super.' + newFieldName)
+
+                    content = content.replaceAll('\\b' + Pattern.quote(oldFieldName) + '(?=\\s*([=;]))', newFieldName)
+                }
+            }
+
+            String relPath = sourceDir.toURI().relativize(sourceFile.toURI()).toString()
+            String baseName = new File(relPath).name
+            String dirPath = relPath.substring(0, relPath.length() - baseName.length())
+
+            String newFileName = fileRenames[sourceFile.absolutePath] ?: sourceFile.name
+
+            File outputFile = new File(outputDir, dirPath + newFileName)
+            outputFile.parentFile.mkdirs()
+            outputFile.text = content
+        }
+    }
+}
