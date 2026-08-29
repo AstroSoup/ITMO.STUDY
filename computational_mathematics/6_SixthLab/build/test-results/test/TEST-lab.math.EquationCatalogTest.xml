@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lab.math.EquationCatalogTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-04T21:55:52.247Z" hostname="astrosoup-laptop" time="0.001">
+  <properties/>
+  <testcase name="exactSolutionsMatchInitialConditions()" classname="lab.math.EquationCatalogTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

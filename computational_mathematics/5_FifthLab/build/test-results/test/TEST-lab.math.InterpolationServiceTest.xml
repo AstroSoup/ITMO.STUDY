@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lab.math.InterpolationServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-05-05T09:15:44.912Z" hostname="astrosoup-laptop" time="0.058">
+  <properties/>
+  <testcase name="lagrangeReproducesQuadratic()" classname="lab.math.InterpolationServiceTest" time="0.026"/>
+  <testcase name="newtonReproducesQuadraticOnEquallySpacedNodes()" classname="lab.math.InterpolationServiceTest" time="0.004"/>
+  <testcase name="besselReproducesQuadraticOnCentralPair()" classname="lab.math.InterpolationServiceTest" time="0.002"/>
+  <testcase name="stirlingReproducesQuadraticOnCenteredWindow()" classname="lab.math.InterpolationServiceTest" time="0.001"/>
+  <testcase name="generatedFunctionUsesSourceFunction()" classname="lab.math.InterpolationServiceTest" time="0.002"/>
+  <testcase name="gaussReproducesQuadraticOnOddWindow()" classname="lab.math.InterpolationServiceTest" time="0.001"/>
+  <testcase name="duplicateXValuesAreRejected()" classname="lab.math.InterpolationServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -13,3 +13,9 @@
 [submodule "computational_mathematics/1_FirstLab"]
 	path = computational_mathematics/1_FirstLab
 	url = git@github.com:AstroSoup/computational-mathematics-lab-1.git
+[submodule "computational_mathematics/3_ThirdLab"]
+	path = computational_mathematics/3_ThirdLab
+	url = git@github.com:AstroSoup/computational-mathematics-lab-3.git
+[submodule "computational_mathematics/4_FourthLab"]
+	path = computational_mathematics/4_FourthLab
+	url = git@github.com:AstroSoup/computational-mathematics-lab-4.git

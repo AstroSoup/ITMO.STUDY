@@ -1,0 +1,52 @@
+import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.tasks.JavaExec
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'lab6'
+version = '1.0.0'
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'lab.LabApplication'
+    }
+    from {
+        configurations.runtimeClasspath.collect { dependency ->
+            dependency.isDirectory() ? dependency : zipTree(dependency)
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    implementation 'com.github.sh0nk:matplotlib4j:0.5.0'
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.2'
+}
+
+application {
+    applicationName = 'computational-mathematics-lab-6'
+    mainClass = 'lab.LabApplication'
+}
+
+
+tasks.test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lab.math.DifferentialEquationServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-04T21:55:52.201Z" hostname="astrosoup-laptop" time="0.043">
+  <properties/>
+  <testcase name="enhancedEulerComputationWorks()" classname="lab.math.DifferentialEquationServiceTest" time="0.022"/>
+  <testcase name="allMethodsProduceFiniteResults()" classname="lab.math.DifferentialEquationServiceTest" time="0.002"/>
+  <testcase name="milneComputationWorks()" classname="lab.math.DifferentialEquationServiceTest" time="0.001"/>
+  <testcase name="rungeKuttaComputationWorks()" classname="lab.math.DifferentialEquationServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
