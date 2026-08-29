@@ -19,3 +19,9 @@
 [submodule "computational_mathematics/4_FourthLab"]
 	path = computational_mathematics/4_FourthLab
 	url = git@github.com:AstroSoup/computational-mathematics-lab-4.git
+[submodule "computer_system_architecture/3_ThirdLab"]
+	path = computer_system_architecture/3_ThirdLab
+	url = git@github.com:AstroSoup/computer-system-architecture-lab-3.git
+[submodule "computer_system_architecture/4_FourthLab"]
+	path = computer_system_architecture/4_FourthLab
+	url = git@github.com:AstroSoup/computer-system-architecture-lab-4.git
