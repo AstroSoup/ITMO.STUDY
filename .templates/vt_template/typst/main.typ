@@ -7,9 +7,11 @@
 )
 
 
+
+
 #show math.cases: math.display
 
-#show link: it => underline(text(fill: blue)[#it])
+
 // Номер лабораторной работы
 #context id.update("")
 // Название лабораторной работы
@@ -38,20 +40,29 @@
 
 #pagebreak()
 
+// headings
 #show heading: set align(left)
 #show heading: set text(size: 14pt)
 #set heading(numbering: "1.",)
 #show heading: pad.with(left: 1.25cm)
+
+
+// default enums
 #set enum(numbering: "1)")
+
+// paragraph
 #set par(
   first-line-indent: (all: true, amount: 1.25cm),
   justify: true,
 )
+// Links
+#show link: it => if type(it.dest) == str { text(underline(it), fill: blue) } else { it }
 
-
-
+// figure 
 #set figure.caption(separator: [ --- ])
 
+
+// listings
 #let style-number(number) = text(gray)[#number:]
 
 #show raw.where(block: true): it => grid(
@@ -64,6 +75,25 @@
     .flatten()
 )
 
+
+// refs to itemized lists (enums)
+#show ref: it => {
+  let el = it.element
+  if el != none and el.func() == enum.item {
+    let sup = it.supplement
+    let (text, style) = if sup == auto {
+      ([Элемент~], "1")
+    } else if sup.func() == text {
+      ([#sup.text~], "1")
+    } else {
+      (sup.children.slice(0, -1).join(), sup.children.at(-1).text)
+    }
+    // color the whole link (supplement + number)
+    link(el.location(), std.text(fill: black, [#text#numbering(style, el.number)]))
+  } else {
+    it
+  }
+}
 
 #include "content.typ"
 
